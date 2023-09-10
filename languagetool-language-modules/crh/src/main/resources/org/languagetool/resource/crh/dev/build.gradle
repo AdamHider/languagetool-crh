@@ -51,7 +51,8 @@ task prepareDict(type: Exec) {
         new File("$workingDir/$tmpDir").mkdirs()
     }
 
-    def cmd = "cat ${srcDict} | tr ' ' '\\t' | LC_ALL=POSIX sort -u > ${outFile}"
+//    def cmd = "cat ${srcDict} | tr ' ' '\\t' | LC_ALL=POSIX sort -u > ${outFile}"
+    def cmd = "cat ${srcDict} | grep -v ' ' | LC_ALL=POSIX sort -u > ${outFile} && grep -vE ':(undesirable_tags)' ${outFile} > ${outFile}.synth"
 
     commandLine "sh", "-c", "${cmd}"
 }
@@ -70,6 +71,22 @@ task posDict(type: JavaExec, dependsOn: prepareDict) {
 
     args "-i", "${tmpDir}/all.tagged.tmp"
     args "-info", "${projectDir}/../crimean_tatar.info"
+    args "-o", "${outputDict}"
+}
+
+task synthDict(type: JavaExec, dependsOn: prepareDict) {
+    def outputDict="${outResDir}/crimean_tatar_synth.dict"
+
+    inputs.files tasks.prepareDict.outputs
+    outputs.file outputDict
+
+    workingDir "$projectDir"
+
+    classpath = files(configurations.provided.files)
+    main = 'org.languagetool.tools.SynthDictionaryBuilder'
+
+    args "-i", "${tmpDir}/all.tagged.tmp.synth"
+    args "-info", "${projectDir}/../crimean_tatar_synth.info"
     args "-o", "${outputDict}"
 }
 
@@ -117,6 +134,6 @@ task spellDict(type: JavaExec, dependsOn: prepareSpellWords) {
 
 
 
-processResources.dependsOn(posDict, spellDict)
+processResources.dependsOn(posDict, synthDict, spellDict)
 compileJava.enabled = false
 
