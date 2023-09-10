@@ -37,49 +37,20 @@ USA
       <rulegroup id="PLURAL_AFFIX_CONFUSION" name="Cemi afiksi hatası">
         <rule>
           <pattern>
-            <token regexp="yes">.*[uoa]+[bcdğjlmnñrvyzçfhkpstuoa]+ler</token>
+            <token regexp="yes">.*[uoa]+[bcdğıjlmnñrvyzçfhkpstuoa]+ler</token>
           </pattern>
           <message>Cemi afiksi hatası: <suggestion ><match no="1" regexp_match="(.*[uoa]+[bcdğıjlmnñrvyzçfhkpstuoa]+)?(ler)" regexp_replace="$1lar"/></suggestion></message>
           <example correction="hatalar">Defterimde <marker>hataler</marker> yaptım.</example>
         </rule>
         <rule>
           <pattern>
-            <token regexp="yes">.*[eüöâ]+[bcdğjlmnñrvyzçfhkpsteüöâ]+lar</token>
+            <token regexp="yes">.*[eüöâ]+[bcdğıjlmnñrvyzçfhkpsteüöâ]+lar</token>
           </pattern>
           <message>Cemi afiksi hatası: <suggestion ><match no="1" regexp_match="(.*[eüöâ]+[bcdğıjlmnñrvyzçfhkpsteüöâ]+)(lar)" regexp_replace="$1ler"/></suggestion></message>
           <example correction="Terekler"><marker>Tereklar</marker> kördim.</example>
         </rule>
       </rulegroup>
-      <rulegroup id="DATIVE_AFFIX_CONFUSION" name="Doğrultuv kelişiniñ hatası">
-        <rule>
-          <pattern>
-            <token regexp="yes">.*[uoıa]+[abcdğıjlmnñoruvyzuoıa]+(qa|ge|ke)</token>
-          </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[uoıa]+[abcdğıjlmnñoruvyzuoıa]+)(qa|ge|ke)" regexp_replace="$1ğa"/></suggestion></message>
-          <example correction="toyğa">Doslarımnen <marker>toyge</marker> keldim.</example>
-        </rule>
-        <rule>
-          <pattern>
-            <token regexp="yes">.*[eiüöâ]+[âbcdğeijlmnñörüvyzeiüöâ]+(qa|ğa|ke)</token>
-          </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eiüöâ]+[âbcdğeijlmnñörüvyzeiüöâ]+)(qa|ğa|ke)" regexp_replace="$1ge"/></suggestion></message>
-          <example correction="poyezdge">Dostumnen <marker>poyezdğa</marker> yetişmedim.</example>
-        </rule>
-        <rule>
-          <pattern>
-            <token regexp="yes">.*[uoıa]+[çfhqpst]+(ğa|ge|ke)</token>
-          </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[uoıa]+[açfhıkopstu]+)(ğa|ge|ke)" regexp_replace="$1qa"/></suggestion></message>
-          <example correction="Dostqa"><marker>Dostğa</marker> bardıq.</example>
-        </rule>
-        <rule>
-          <pattern>
-            <token regexp="yes">.*[eiüöâ]+[çfhkpst]+(qa|ğa|ge)</token>
-          </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eiüöâ]+[âçfehköpstü]+)(qa|ğa|ge)" regexp_replace="$1ke"/></suggestion></message>
-          <example correction="Samolötke"><marker>Samolötge</marker> yetişmedik.</example>
-        </rule>
-      </rulegroup>
+      
       <rulegroup id="MIDDLE_VOWEL_EXCLUSIOON" name="Orta sozuq sesiniñ tüşmesi">
         <rule>
           <pattern>
