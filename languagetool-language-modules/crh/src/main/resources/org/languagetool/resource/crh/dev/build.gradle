@@ -35,7 +35,13 @@ dependencies {
     provided 'org.languagetool:languagetool-tools:' + ltToolsVersion
 }
 
-
+// for git-bash
+def convert(String filename) {
+  if( filename.contains(":\\") ) {
+      return filename.replaceFirst(/(?i)([a-z]):\//, '$1/').replace('\\', '/')
+  }
+  return filename
+}
 
 task prepareDict(type: Exec) {
     def srcDict="${inputDir}/$inputDictFile"
@@ -51,6 +57,8 @@ task prepareDict(type: Exec) {
         new File("$workingDir/$tmpDir").mkdirs()
     }
 
+    srcDict = convert(srcDict)
+    
 //    def cmd = "cat ${srcDict} | tr ' ' '\\t' | LC_ALL=POSIX sort -u > ${outFile}"
     def cmd = "cat ${srcDict} | grep -v ' ' | LC_ALL=POSIX sort -u > ${outFile} && grep -vE ':(undesirable_tags)' ${outFile} > ${outFile}.synth"
 
@@ -67,8 +75,9 @@ task posDict(type: JavaExec, dependsOn: prepareDict) {
     workingDir "$projectDir"
 
     classpath = files(configurations.provided.files)
-    main = 'org.languagetool.tools.POSDictionaryBuilder'
-
+    mainClass = 'org.languagetool.tools.POSDictionaryBuilder'
+    jvmArgs "-Xmx12g"
+    
     args "-i", "${tmpDir}/all.tagged.tmp"
     args "-info", "${projectDir}/../crimean_tatar.info"
     args "-o", "${outputDict}"
@@ -83,8 +92,9 @@ task synthDict(type: JavaExec, dependsOn: prepareDict) {
     workingDir "$projectDir"
 
     classpath = files(configurations.provided.files)
-    main = 'org.languagetool.tools.SynthDictionaryBuilder'
-
+    mainClass = 'org.languagetool.tools.SynthDictionaryBuilder'
+    jvmArgs "-Xmx12g"
+    
     args "-i", "${tmpDir}/all.tagged.tmp.synth"
     args "-info", "${projectDir}/../crimean_tatar_synth.info"
     args "-o", "${outputDict}"
@@ -104,7 +114,9 @@ task prepareSpellWords(type: Exec) {
     doFirst {
         new File(tmpDir).mkdirs()
     }
-
+    
+    srcDict = convert(srcDict)
+    
     def cmd = "cat ${srcDict} | cut -f 1 | grep -v ' ' | LC_ALL=POSIX sort -u > ${outFile}"
 
     commandLine "sh", "-c", "${cmd}"
@@ -121,8 +133,9 @@ task spellDict(type: JavaExec, dependsOn: prepareSpellWords) {
     workingDir "$projectDir"
 
     classpath = files(configurations.provided.files)
-    main = 'org.languagetool.tools.SpellDictionaryBuilder'
-
+    mainClass = 'org.languagetool.tools.SpellDictionaryBuilder'
+    jvmArgs "-Xmx12g"
+    
     args "-i", "${tmpDir}/spell.words.tmp"
     args "-info", "${resourceDir}/hunspell/crh_UA.info"
     args "-o", "${outFile}"
@@ -136,4 +149,3 @@ task spellDict(type: JavaExec, dependsOn: prepareSpellWords) {
 
 processResources.dependsOn(posDict, synthDict, spellDict)
 compileJava.enabled = false
-
