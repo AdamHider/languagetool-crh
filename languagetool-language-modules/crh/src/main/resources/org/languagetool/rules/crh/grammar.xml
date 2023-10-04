@@ -39,7 +39,7 @@ USA
           <pattern>
             <token regexp="yes">.*[uoa]+[bcdğjlmnñrvyzçfhkpstuoa]+ler</token>
           </pattern>
-          <message>Cemi afiksi hatası: <suggestion ><match no="1" regexp_match="(.*[uoa]+[bcdğjlmnñrvyzçfhkpstuoa]+)?(ler)" regexp_replace="$1lar"/></suggestion></message>
+          <message>Cemi afiksi hatası: <suggestion ><match no="1" regexp_match="(.*[uoa]+[bcdğıjlmnñrvyzçfhkpstuoa]+)?(ler)" regexp_replace="$1lar"/></suggestion></message>
           <example correction="hatalar">Defterimde <marker>hataler</marker> yaptım.</example>
         </rule>
         <rule>
@@ -50,33 +50,49 @@ USA
           <example correction="Terekler"><marker>Tereklar</marker> kördim.</example>
         </rule>
       </rulegroup>
+      <rulegroup id="PLURAL_AFFIX_CONFUSION_CYR" name="Cemi afiksi hatası (cyr)">
+        <rule>
+          <pattern>
+            <token regexp="yes">.*[ыуоа]+[бджгълмнрвйзчфхкпстыуоа]+лер</token>
+          </pattern>
+          <message>Джеми афикси хатасы: <suggestion ><match no="1" regexp_match="(.*[ыуоа]+[бджгълмнрвйзчфхкпстыуоа]+)?(лер)" regexp_replace="$1лар"/></suggestion></message>
+          <example correction="хаталар">Дефтеримде <marker>хаталер</marker> яптым.</example>
+        </rule>
+        <rule>
+          <pattern>
+            <token regexp="yes">.*[еюёя]+[бджгълмнрвйзчфхкпстеюёя]+лар</token>
+          </pattern>
+          <message>Джеми афикси хатасы: <suggestion ><match no="1" regexp_match="(.*[еюёя]+[бджгълмнрвйзчфхкпстеюёя]+)(лар)" regexp_replace="$1лер"/></suggestion></message>
+          <example correction="Тереклер"><marker>Тереклар</marker> корьдим.</example>
+        </rule>
+      </rulegroup>
       <rulegroup id="DATIVE_AFFIX_CONFUSION" name="Doğrultuv kelişiniñ hatası">
         <rule>
           <pattern>
-            <token regexp="yes">.*[uoa]+[abcdğjlmnñoruvyzuoa]+(qa|ge|ke)</token>
+            <token regexp="yes">.*[uoıa]+[bcdğjlmnñoruvyzuoıa]+(qa|ge|ke)</token>
           </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[uoa]+[abcdğjlmnñoruvyzuoa]+)(qa|ge|ke)" regexp_replace="$1ğa"/></suggestion></message>
+          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[uoıa]+[bcdğjlmnñoruvyzuoıa]+)(qa|ge|ke)" regexp_replace="$1ğa"/></suggestion></message>
           <example correction="toyğa">Doslarımnen <marker>toyge</marker> keldim.</example>
         </rule>
         <rule>
           <pattern>
-            <token regexp="yes">.*[eüöâ]+[âbcdğejlmnñörüvyzeüöâ]+(qa|ğa|ke)</token>
+            <token regexp="yes">.*[eiüöâ]+[bcdğjlmnñörüvyzeiüöâ]+(qa|ğa|ke)</token>
           </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eüöâ]+[âbcdğejlmnñörüvyzeüöâ]+)(qa|ğa|ke)" regexp_replace="$1ge"/></suggestion></message>
+          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eiüöâ]+[bcdğjlmnñörüvyzeiüöâ]+)(qa|ğa|ke)" regexp_replace="$1ge"/></suggestion></message>
           <example correction="poyezdge">Dostumnen <marker>poyezdğa</marker> yetişmedim.</example>
         </rule>
         <rule>
           <pattern>
-            <token regexp="yes">.*[uoa]+[çfhqpst]+(ğa|ge|ke)</token>
+            <token regexp="yes">.*[uoıa]+[çfhqpst]+(ğa|ge|ke)</token>
           </pattern>
           <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[uoıa]+[açfhıkopstu]+)(ğa|ge|ke)" regexp_replace="$1qa"/></suggestion></message>
           <example correction="Dostqa"><marker>Dostğa</marker> bardıq.</example>
         </rule>
         <rule>
           <pattern>
-            <token regexp="yes">.*[eüöâ]+[çfhkpst]+(qa|ğa|ge)</token>
+            <token regexp="yes">.*[eiüöâ]+[çfhkpst]+(qa|ğa|ge)</token>
           </pattern>
-          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eüöâ]+[âçfehköpstü]+)(qa|ğa|ge)" regexp_replace="$1ke"/></suggestion></message>
+          <message>Doğrultuv kelişiniñ hatası: <suggestion ><match no="1" regexp_match="(.*[eiüöâ]+[âçfehköpstü]+)(qa|ğa|ge)" regexp_replace="$1ke"/></suggestion></message>
           <example correction="Samolötke"><marker>Samolötge</marker> yetişmedik.</example>
         </rule>
       </rulegroup>
@@ -580,5 +596,4 @@ USA
       </rulegroup>
 
     </category>
-
 </rules>
