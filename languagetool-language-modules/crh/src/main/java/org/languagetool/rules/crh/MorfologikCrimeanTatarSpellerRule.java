@@ -46,6 +46,10 @@ public final class MorfologikCrimeanTatarSpellerRule extends MorfologikSpellerRu
   @Override
   public String getId() {
     return "MORFOLOGIK_RULE_CRH_UA";
+  } 
+  
+  protected boolean isLatinScript() {
+    return false;
   }
   
 }
